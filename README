@@ -1,3 +1,7 @@
+<style>
+	font-family: serif;
+	font-size:12pt;
+</style>
 This is a jQuery Plugin that turns all custom SC-Players on your page into a playlist. That means the next track starts automatically when one finished, regardless of where they are in the DOM.
 
 DEPENDENCIES
@@ -18,3 +22,4 @@ USAGE
 		$(div-with-your-tracks).SCPlaylist({"tracks": "your-track-class"});
 
 	You're invited to have a look at the example too.
+</html>
