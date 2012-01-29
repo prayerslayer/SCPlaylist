@@ -1,3 +1,7 @@
+<html>
+<head>
+</head>
+<body>
 <style>
 	font-family: serif;
 	font-size:12pt;
@@ -22,4 +26,5 @@ USAGE
 		$(div-with-your-tracks).SCPlaylist({"tracks": "your-track-class"});
 
 	You're invited to have a look at the example too.
+</body>
 </html>
