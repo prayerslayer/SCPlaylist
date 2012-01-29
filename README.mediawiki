@@ -1,1 +1,32 @@
-''HEello''
+== SoundCloud Playlist ==
+
+It turns all links to tracks on SC on your page into custom players that are linked via a simple playlist feature - one track ends, the next starts. The plugin collects all tracks in a container you specify, regardless of their position in the DOM.
+
+=== Dependencies ===
+
+jQuery, of course. Then sc-player.js and soundcloud.player.api.js from SoundCloud, a CSS for the custom player would also be nice. Look [http://developers.soundcloud.com/docs/custom-player here].
+
+=== Usage ===
+
+Simple. Add links to tracks on SoundCloud like this:
+<code>
+	<a class="track" href="url-to-track-on-sc">Track name</a>
+</code>
+
+It's important that all tracks that you want in a playlist share a CSS class. You're now one function call away from your playlist:
+<code>
+	$(document).ready(function() {
+		$(div-containing-your-tracks).SCPlaylist();
+	});
+</code>
+
+If you want to use a class other than "track", call it like this:
+<code>
+	$(document).ready(function() {
+		$(div-containing-your-tracks).SCPlaylist({
+			"tracks": "your-class"
+		});
+	});
+</code>
+
+Check out the example too!
