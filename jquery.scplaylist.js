@@ -1,17 +1,19 @@
 (function( $ ){
-	//stop sc-player
+	
 	$.fn.SCPlaylist = function( options ) {  
+		//stop sc-player
 		$.scPlayer.onDomReady = null;
 
 		//some vars
 		var parent = this;
-		var tracks = new Array();
 		var settings = $.extend( {
 	     	"tracks": ".track"
 	    }, options);
 	    var dom_tracks = $(settings.tracks, parent);
+	    var tracks = new Array(count);
 	    var count = dom_tracks.length;
 	    var active_track;
+	    var first_init = true;
 	    //methods
 	    var methods = {
 	    	swap: function(array, a, b) {
@@ -37,11 +39,13 @@
 	    };
 	    //bindings
 	    $(document).bind('onPlayerInit.scPlayer', function(event){
-	    	tracks.push(event.target);
-			count--;
-			if (count<=0) {
-				methods.sortByDOM(tracks, $(settings.tracks, parent)); //dom_tracks wouldn't work because they're all sc-players now
+	    	if(first_init) {
+				first_init = false;
+				dom_tracks = $(settings.tracks, parent); //get sc-players
 			}
+			var track = event.target;
+			var dom_idx = $.inArray(track, dom_tracks); //look up the location in dom
+			tracks[dom_idx] = track;
 		});
 	    $(document).bind('onPlayerPlay.scPlayer', function(event){
 			active_track = event.target;
@@ -49,9 +53,14 @@
 	    $(document).bind('onMediaTimeUpdate.scPlayer', function(event){
 			if ((event.duration - event.position)<=500) {
 				var idx = $.inArray(active_track, tracks);
-				if (idx+1 < tracks.length) {
-					$(".sc-play", tracks[idx+1]).first().click();
+				if (idx === tracks.length-1) {
+					return; 	//there are no more tracks
 				}
+				do {
+					idx++;
+				}
+				while (idx<tracks.length && tracks[idx]==null); //skip tracks that aren't ready
+				$(".sc-play", tracks[idx]).first().click();
 			}
 		});
 
